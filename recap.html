@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SQL Query Journey: A Recap</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="stylesheet" href="assets/styles/styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">SQL Learning Hub</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="recap.html">SQL Recap</a></li>
+                <li><a href="plsql_cheatsheet.html">PL/SQL Cheat Sheet</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="presentation-container">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <!-- Slide 1: Title -->
+            <section class="slide active">
+                <h1>The SQL Query Journey</h1>
+                <h2>A Structured Recap</h2>
+                <p style="text-align:center; font-style:italic;">From Raw Data to Powerful Insights</p>
+            </section>
+
+            <!-- Slide 2: Agenda -->
+            <section class="slide">
+                <h1>Our Journey Today</h1>
+                <ul>
+                    <li><strong>The Big Picture:</strong> How SQL <em>really</em> works.</li>
+                    <li><strong>The Playground:</strong> Introducing our sample database.</li>
+                    <li><strong>The Logical Walkthrough:</strong> Building a query step-by-step.</li>
+                    <li><strong>Practice Makes Perfect:</strong> Let's write some queries!</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: How SQL Thinks -->
+            <section class="slide">
+                <h1>How We Write vs. How SQL Thinks</h1>
+                <h2>Understanding Logical Processing Order is the Key</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>We Write (Syntax Order)</th>
+                            <th>SQL Executes (Logical Order)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>SELECT</code></td>
+                            <td>1. <code>FROM</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>FROM</code></td>
+                            <td>2. <code>WHERE</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>WHERE</code></td>
+                            <td>3. <code>GROUP BY</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>GROUP BY</code></td>
+                            <td>4. <code>HAVING</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>HAVING</code></td>
+                            <td>5. <code>SELECT</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>ORDER BY</code></td>
+                            <td>6. <code>ORDER BY</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 4: Analogy -->
+            <section class="slide">
+                <h1>The "Baking a Cake" Analogy</h1>
+                <h2>Follow the Recipe for a Perfect Result</h2>
+                <ul>
+                    <li><strong>1. <code>FROM</code></strong>: Get all your ingredients (tables).</li>
+                    <li><strong>2. <code>WHERE</code></strong>: Remove spoiled ingredients (filter rows).</li>
+                    <li><strong>3. <code>GROUP BY</code></strong>: Put ingredients into mixing bowls (group rows).</li>
+                    <li><strong>4. <code>HAVING</code></strong>: Check each bowl; discard some (filter groups).</li>
+                    <li><strong>5. <code>SELECT</code></strong>: Measure what you need from the final bowls (choose
+                        columns).</li>
+                    <li><strong>6. <code>ORDER BY</code></strong>: Arrange finished cakes on a platter (sort results).
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: Sample Database -->
+            <section class="slide">
+                <h1>The University Database</h1>
+                <h2>Our Playground for Today's Queries</h2>
+                <h3>Students</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentID</th>
+                            <th>FirstName</th>
+                            <th>Major</th>
+                            <th>GPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>Sarah</td>
+                            <td>Computer Science</td>
+                            <td>3.8</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>John</td>
+                            <td>History</td>
+                            <td>3.2</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Maria</td>
+                            <td>Computer Science</td>
+                            <td>3.9</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>David</td>
+                            <td>Business</td>
+                            <td>3.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Enrollments</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EnrollmentID</th>
+                            <th>StudentID</th>
+                            <th>CourseID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>101</td>
+                            <td>CS101</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>102</td>
+                            <td>HST205</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>103</td>
+                            <td>CS101</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Walkthrough Slides -->
+            <section class="slide">
+                <h1>Step 1: <code>FROM</code></h1>
+                <h2>Where does the data come from?</h2>
+                <p>This is the starting point. It specifies the table to query. The database engine virtually loads this
+                    entire table into memory.</p>
+                <pre><code>FROM Students</code></pre>
+            </section>
+
+            <section class="slide">
+                <h1>Step 2: <code>WHERE</code></h1>
+                <h2>Filtering individual records</h2>
+                <p>It keeps only the rows that match a condition. This happens <strong>before</strong> any grouping.</p>
+                <pre><code>FROM Students
+WHERE Major = 'Computer Science'</code></pre>
+                <p>The database now only considers Sarah's and Maria's rows for the next steps.</p>
+            </section>
+
+            <section class="slide">
+                <h1>Step 3: <code>GROUP BY</code></h1>
+                <h2>Partitioning into groups</h2>
+                <p>It collapses multiple rows into a single summary row based on a column. This is essential for
+                    aggregate functions like <code>COUNT()</code> or <code>AVG()</code>.</p>
+                <pre><code>FROM Students
+GROUP BY Major</code></pre>
+                <p>The database now sees three "buckets": 'Computer Science', 'History', and 'Business'.</p>
+            </section>
+
+            <section class="slide">
+                <h1>Step 4: <code>HAVING</code></h1>
+                <h2>Filtering the groups</h2>
+                <p>It filters the groups created by <code>GROUP BY</code>. You must use <code>HAVING</code> to filter on
+                    an aggregate result.</p>
+                <pre><code>FROM Students
+GROUP BY Major
+HAVING COUNT(StudentID) > 1</code></pre>
+                <p>Only the 'Computer Science' group remains, as it's the only one with more than one student.</p>
+            </section>
+
+            <section class="slide">
+                <h1><code>WHERE</code> vs. <code>HAVING</code></h1>
+                <h2>A Critical Distinction</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>WHERE</th>
+                            <th>HAVING</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What it filters</strong></td>
+                            <td>Individual Rows</td>
+                            <td>Groups of Rows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>When it runs</strong></td>
+                            <td><strong>Before</strong> <code>GROUP BY</code></td>
+                            <td><strong>After</strong> <code>GROUP BY</code>
+                        </tr>
+                        <tr>
+                            <td><strong>Function Use</strong></td>
+                            <td>Cannot use aggregates (e.g., <code>COUNT()</code>)</td>
+                            <td>Used specifically with aggregates</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="slide">
+                <h1>Step 5: <code>SELECT</code></h1>
+                <h2>Choosing what to output</h2>
+                <p>This specifies the final columns to display. It's where you use aggregate functions and can create
+                    aliases (<code>AS</code>.</p>
+                <pre><code>SELECT
+  Major,
+  COUNT(StudentID) AS NumberOfStudents
+FROM Students
+GROUP BY Major
+HAVING COUNT(StudentID) > 1</code></pre>
+            </section>
+
+            <section class="slide">
+                <h1>Step 6: <code>ORDER BY</code></h1>
+                <h2>Sorting the final output</h2>
+                <p>This is the very last step. It sorts the final result set. You can use aliases defined in the
+                    <code>SELECT</code> clause here.</p>
+                <pre><code>SELECT Major, AVG(GPA) AS AverageGPA
+FROM Students
+GROUP BY Major
+ORDER BY AverageGPA DESC;</code></pre>
+            </section>
+
+            <!-- Practice Slides -->
+            <section class="slide">
+                <h1>Let's Practice!</h1>
+                <h2>Problem 1: Medium</h2>
+                <p><strong>Task:</strong> How many students are in each major? List the major and the count of students,
+                    aliased as <code>NumberOfStudents</code>.</p>
+            </section>
+
+            <section class="slide">
+                <h1>Solution 1</h1>
+                <h2>Counting students in each major</h2>
+                <pre><code>SELECT
+  Major,
+  COUNT(StudentID) AS NumberOfStudents
+FROM Students
+GROUP BY Major;</code></pre>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Major</th>
+                            <th>NumberOfStudents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Business</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Computer Science</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>History</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="slide">
+                <h1>Let's Practice!</h1>
+                <h2>Problem 2: Hard</h2>
+                <p><strong>Task:</strong> List the majors that have an average GPA greater than 3.4. Show the major and
+                    its average GPA, sorted with the highest average GPA first.</p>
+            </section>
+
+            <section class="slide">
+                <h1>Solution 2</h1>
+                <h2>Finding top-performing majors</h2>
+                <pre><code>SELECT
+  Major,
+  AVG(GPA) AS AverageGPA
+FROM Students
+GROUP BY Major
+HAVING AVG(GPA) > 3.4
+ORDER BY AverageGPA DESC;</code></pre>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Major</th>
+                            <th>AverageGPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Computer Science</td>
+                            <td>3.85</td>
+                        </tr>
+                        <tr>
+                            <td>Business</td>
+                            <td>3.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Final Slide -->
+            <section class="slide">
+                <h1>Recap Complete!</h1>
+                <h2>Questions?</h2>
+                <p style="text-align:center; font-size:1.2em; margin-top:40px;">You now understand the logical journey
+                    of a SQL query. Keep practicing!</p>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation">
+                <button id="prevBtn" class="nav-button">Previous</button>
+                <button id="nextBtn" class="nav-button">Next</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p class="hero-text">&copy; 2025 SQL Learning Hub. Created By Joan</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const progressFill = document.getElementById('progressFill');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                // Hide current slide
+                slides[currentSlide].classList.remove('active');
+
+                // Update current slide index
+                currentSlide = index;
+
+                // Show new slide
+                slides[currentSlide].classList.add('active');
+
+                // Update button states
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === slides.length - 1;
+
+                // Update progress bar
+                const progress = ((currentSlide + 1) / slides.length) * 100;
+                progressFill.style.width = progress + '%';
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                } else if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            });
+
+            // Show the first slide and set initial button states
+            showSlide(0);
+        });
+    </script>
+</body>
+
+</html>
